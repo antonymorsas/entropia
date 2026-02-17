@@ -25,10 +25,13 @@ services:
       - "8000:8000"
     env_file:
       - ./backend/.env
+    environment:
+      - UPLOADS_DIR=/app/uploads
     depends_on:
       - db
     volumes:
       - ./backend:/app
+      - entropia_uploads:/app/uploads
 
   frontend:
     build: ./frontend
@@ -46,3 +49,4 @@ services:
 volumes:
   postgres_data:
   ollama_data:
+  entropia_uploads:

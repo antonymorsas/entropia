@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional, List, Dict, Any
+from typing import Optional, Union
 from datetime import datetime
 
 from enum import Enum
@@ -46,7 +46,7 @@ class WindowStructuredData(BaseModel):
     location: Location
     type: WindowType
     material: Material
-    panes: int | str 
+    panes: Union[int, str]
     covering: Covering
     openState: OpenState
 

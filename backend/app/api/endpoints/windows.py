@@ -50,7 +50,6 @@ async def create_window(
     is_duplicate = existing_window is not None
     
     
-    # Save file
     import os
     from app.main import uploads_dir
     
@@ -58,7 +57,6 @@ async def create_window(
     filename = f"{sha256_hash}.{file_extension}"
     file_path = os.path.join(uploads_dir, filename)
     
-    # Reset cursor
     await file.seek(0)
     
     with open(file_path, "wb") as f:
@@ -104,4 +102,26 @@ async def get_window(window_id: str, db: Session = Depends(get_db)):
 
 @router.get("/{window_id}/duplicates", response_model=List[WindowResponse])
 async def get_window_duplicates(window_id: str, db: Session = Depends(get_db)):
-    return []
+    window = db.query(Window).filter(Window.id == window_id).first()
+    if not window:
+         raise HTTPException(status_code=404, detail="Window not found")
+    
+    # Find all windows with the same hash, optionally excluding the logic to query self?
+    # User said: "verificar el window id y ver si existe otro window o windows con el mismo hash.
+    # devielve la lista de todos los duplicados"
+    # Usually duplicates list excludes the item itself to show "other copies".
+    duplicates = db.query(Window).filter(
+        Window.hash == window.hash,
+        Window.id != window.id
+    ).all()
+    
+    return [
+        WindowResponse(
+            id=w.id,
+            hash=w.hash,
+            isDuplicate=w.is_duplicate,
+            createdAt=w.created_at,
+            imageUrl=w.image_url,
+            ai=None
+        ) for w in duplicates
+    ]
