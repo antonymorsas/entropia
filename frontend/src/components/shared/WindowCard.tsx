@@ -61,7 +61,7 @@ export default function WindowCard({ window }: { window: WindowProps }) {
                         </div>
                         {window.isDuplicate && (
                             <span className="bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded-full border border-amber-200 font-medium">
-                                Duplicate
+                                Duplicado
                             </span>
                         )}
                     </div>
@@ -77,11 +77,54 @@ export default function WindowCard({ window }: { window: WindowProps }) {
                             <div className="flex flex-wrap gap-2 mt-3">
                                 {Object.entries(window.ai.structured_data)
                                     .filter(([_, value]) => value !== "unknown")
-                                    .map(([key, value]) => (
-                                        <span key={key} className="bg-blue-50 text-blue-700 text-xs px-2 py-1 rounded border border-blue-100 font-medium capitalize">
-                                            {key}: {value}
-                                        </span>
-                                    ))}
+                                    .map(([key, value]) => {
+                                        const keyMap: Record<string, string> = {
+                                            daytime: "Momento",
+                                            location: "Ubicación",
+                                            type: "Tipo",
+                                            material: "Material",
+                                            panes: "Paneles",
+                                            covering: "Cubierta",
+                                            openState: "Estado"
+                                        };
+
+                                        const valueMap: Record<string, string> = {
+                                            // Daytime
+                                            day: "Día",
+                                            night: "Noche",
+                                            // Location
+                                            interior: "Interior",
+                                            exterior: "Exterior",
+                                            // Type
+                                            fixed: "Fija",
+                                            sliding: "Corrediza",
+                                            casement: "Abatible",
+                                            awning: "Proyectante",
+                                            hung: "Guillotina",
+                                            pivot: "Pivotante",
+                                            // Material
+                                            wood: "Madera",
+                                            aluminum: "Aluminio",
+                                            pvc: "PVC",
+                                            // Covering
+                                            curtains: "Cortinas",
+                                            blinds: "Persianas",
+                                            none: "Ninguna",
+                                            // OpenState
+                                            open: "Abierta",
+                                            closed: "Cerrada",
+                                            ajar: "Entreacta"
+                                        };
+
+                                        const label = keyMap[key] || key;
+                                        const val = valueMap[String(value)] || String(value);
+
+                                        return (
+                                            <span key={key} className="bg-blue-50 text-blue-700 text-xs px-2 py-1 rounded border border-blue-100 font-medium capitalize">
+                                                {label}: {val}
+                                            </span>
+                                        );
+                                    })}
                             </div>
                         )}
                     </div>

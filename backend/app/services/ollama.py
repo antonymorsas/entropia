@@ -14,7 +14,7 @@ class OllamaService:
 
         prompt = """
         Analyze this image of a window. 
-        Provide a short description and a structured JSON object with the following fields:
+        Provide a short description IN SPANISH and a structured JSON object with the following fields:
         - daytime: "day" | "night" | "unknown"
         - location: "interior" | "exterior" | "unknown"
         - type: "fixed" | "sliding" | "casement" | "awning" | "hung" | "pivot" | "unknown"
@@ -25,7 +25,7 @@ class OllamaService:
 
         Return ONLY valid JSON in the following format:
         {
-            "description": "Short description of the window...",
+            "description": "Breve descripción de la ventana en español...",
             "structured_data": {
                 "daytime": "...",
                 "location": "...",
