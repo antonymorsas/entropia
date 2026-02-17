@@ -1,0 +1,8 @@
+__pycache__/
+fastapi-env
+*.pyc
+*.sqlite3
+.env
+venv/
+.env.*
+.DS_Store
