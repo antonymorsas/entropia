@@ -106,10 +106,6 @@ async def get_window_duplicates(window_id: str, db: Session = Depends(get_db)):
     if not window:
          raise HTTPException(status_code=404, detail="Window not found")
     
-    # Find all windows with the same hash, optionally excluding the logic to query self?
-    # User said: "verificar el window id y ver si existe otro window o windows con el mismo hash.
-    # devielve la lista de todos los duplicados"
-    # Usually duplicates list excludes the item itself to show "other copies".
     duplicates = db.query(Window).filter(
         Window.hash == window.hash,
         Window.id != window.id
@@ -125,3 +121,26 @@ async def get_window_duplicates(window_id: str, db: Session = Depends(get_db)):
             ai=None
         ) for w in duplicates
     ]
+
+@router.delete("/{window_id}", status_code=204)
+async def delete_window(window_id: str, db: Session = Depends(get_db)):
+    window = db.query(Window).filter(Window.id == window_id).first()
+    if not window:
+        raise HTTPException(status_code=404, detail="Window not found")
+    
+    if window.image_url:
+        import os
+        from app.main import uploads_dir
+
+        filename = os.path.basename(window.image_url)
+        file_path = os.path.join(uploads_dir, filename)
+        
+        if os.path.exists(file_path):
+            try:
+                os.remove(file_path)
+            except OSError as e:
+                print(f"Error deleting file {file_path}: {e}")
+
+    db.delete(window)
+    db.commit()
+    return None

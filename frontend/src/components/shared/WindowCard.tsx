@@ -90,7 +90,7 @@ export default function WindowCard({ window }: { window: WindowProps }) {
                     {window.imageUrl && (
                         <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-gray-100 border border-gray-200 mb-2">
                             <Image
-                                src={window.imageUrl.startsWith("http") ? window.imageUrl : `http://localhost:8000/${window.imageUrl}`}
+                                src={window.imageUrl.startsWith("http") ? window.imageUrl : `/${window.imageUrl}`}
                                 alt={description}
                                 fill
                                 className="object-cover hover:scale-105 transition-transform duration-500"
