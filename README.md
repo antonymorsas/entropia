@@ -12,7 +12,7 @@ Prerrequisitos: [Docker](https://docs.docker.com/get-docker/) y [Docker Compose]
     cd entropia
     ```
 
-2.  Configurar variables de entorno (Obligatorio):
+2.  Configurar variables de entorno:
     - **Backend**: Copiar el archivo de ejemplo:
       ```bash
       cp backend/.env.example backend/.env
