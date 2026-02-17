@@ -6,3 +6,4 @@ pydantic
 httpcore
 psycopg2-binary
 pydantic-settings
+requests

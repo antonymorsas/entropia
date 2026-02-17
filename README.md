@@ -35,7 +35,7 @@ Prerrequisitos: [Docker](https://docs.docker.com/get-docker/) y [Docker Compose]
 5.  **Descargar modelo Gemma (IA)**:
     Una vez que los contenedores estén corriendo, es necesario descargar el modelo `gemma3` dentro del contenedor de Ollama:
     ```bash
-    docker compose exec ollama ollama run gemma3
+    docker exec -it entropia-ollama-1 ollama pull gemma3
     ```
 
 ## Notas de Diseño

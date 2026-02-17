@@ -61,11 +61,4 @@ class WindowResponse(BaseModel):
     createdAt: datetime
     ai: Optional[AIAnalysis] = None
     imageUrl: Optional[str] = None
-
-class WindowCreate(BaseModel):
-    pass
-
-class Window(BaseModel):
-    name: str
-    description: str
     

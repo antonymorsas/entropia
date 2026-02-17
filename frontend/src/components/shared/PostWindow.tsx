@@ -12,6 +12,8 @@ interface FormData {
     file: FileList;
 }
 
+import AnalysisLoader from "./AnalysisLoader";
+
 export default function PostWindow() {
     const {
         register,
@@ -33,6 +35,10 @@ export default function PostWindow() {
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
+            if (file.size > 5 * 1024 * 1024) {
+                setPreview(null);
+                return;
+            }
             // Create preview
             const reader = new FileReader();
             reader.onloadend = () => {
@@ -59,7 +65,15 @@ export default function PostWindow() {
 
     const fileRest = register("file", {
         required: "Por favor selecciona una imagen",
-        onChange: handleFileChange
+        onChange: handleFileChange,
+        validate: {
+            lessThan5MB: (files) => {
+                if (files && files[0] && files[0].size > 5 * 1024 * 1024) {
+                    return "El archivo no debe superar los 5MB.";
+                }
+                return true;
+            }
+        }
     });
 
 
@@ -68,7 +82,8 @@ export default function PostWindow() {
             onSubmit={handleSubmit(onSubmit)}
             className="p-4 border-b border-gray-200 bg-white"
         >
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 relative">
+                {isLoading && <AnalysisLoader />}
                 {!preview ? (
                     <div className="relative border-2 border-dashed border-gray-300 rounded-xl p-8 hover:bg-gray-50 transition-colors text-center cursor-pointer group">
                         <input
