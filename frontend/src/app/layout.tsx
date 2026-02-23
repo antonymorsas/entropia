@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ventan Social",
+  title: "Ventana Social",
   description: "La primera red social de ventanas: un sitio donde las personas suben fotos de ventanas.",
 };
 

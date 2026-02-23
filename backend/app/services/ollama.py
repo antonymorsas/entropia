@@ -72,7 +72,7 @@ class OllamaService:
         except Exception as e:
             print(f"Error calling Ollama: {e}")
             return AIAnalysis(
-                description="Analysis failed",
+                description="Análisis fallido",
                 structured_data=WindowStructuredData(
                     daytime=Daytime.unknown,
                     location=Location.unknown,

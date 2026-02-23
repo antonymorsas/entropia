@@ -22,12 +22,12 @@ export interface WindowProps {
 
 export default function WindowCard({ window }: { window: WindowProps }) {
     const user = {
-        name: "Anonymous Observer",
-        handle: "anonymous",
+        name: "Observador Anónimo",
+        handle: "anónimo",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=" + window.id,
     };
 
-    const description = window.ai?.description || "No description available.";
+    const description = window.ai?.description || "No hay descripción disponible.";
 
     return (
         <article className="border-b border-gray-200 p-4 hover:bg-gray-50 transition-colors cursor-pointer">

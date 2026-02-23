@@ -20,9 +20,16 @@ def get_db():
 @router.get("/", response_model=List[WindowResponse])
 async def list_windows(
     limit: Optional[int] = None,
+    order: Optional[str] = "desc",
     db: Session = Depends(get_db)
 ):
     query = db.query(Window)
+    
+    if order == "asc":
+        query = query.order_by(Window.created_at.asc())
+    else: 
+        query = query.order_by(Window.created_at.desc())
+    
     if limit:
         query = query.limit(limit)
     windows = query.all()

@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { WindowProps } from "@/components/shared/WindowCard";
 import { ActionResult } from "@/types/actions";
 
-const API_URL = "http://backend:8000/api/windows/";
+const API_URL = "http://backend:8000/api/windows/?order=desc";
 
 export async function getWindows(): Promise<WindowProps[]> {
     try {
